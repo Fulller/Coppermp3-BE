@@ -3,7 +3,7 @@ const User = require("../modules/User");
 const multer = require("multer");
 const { port } = require("../config");
 const { findOne } = require("../modules/User");
-console.log("Day la port", port);
+const { ZingMp3 } = require("zingmp3-api-full");
 
 let register = (body) => {
   return new Promise(async (resole, reject) => {
@@ -12,7 +12,7 @@ let register = (body) => {
       let findUser = await User.findOne({ userName: body.userName });
       if (findUser) {
         result.isSuccessful = false;
-        result.massage = "Account already exists";
+        result.message = "Account already exists";
       } else {
         await User.create({
           userName: body.userName,
@@ -22,12 +22,12 @@ let register = (body) => {
           avatar: `http://localhost:${port}/images/defaultAvatar.jpg`,
         });
         result.isSuccessful = true;
-        result.massage = "Create account success";
+        result.message = "Create account success";
       }
       resole(result);
     } catch (e) {
       result.isSuccessful = false;
-      result.massage = "Account creation failed";
+      result.message = "Account creation failed";
       reject(result);
     }
   });
@@ -40,20 +40,20 @@ let login = (body) => {
       if (data) {
         if (data.password == body.password) {
           result.isSuccessful = true;
-          result.massage = "Logged in successfully";
+          result.message = "Logged in successfully";
           result.user = data;
         } else {
           result.isSuccessful = false;
-          result.massage = "Wrong password";
+          result.message = "Wrong password";
         }
       } else {
         result.isSuccessful = false;
-        result.massage = "User not found";
+        result.message = "User not found";
       }
       resole(result);
     } catch (e) {
       result.isSuccessful = false;
-      result.massage = "Login failed";
+      result.message = "Login failed";
       reject(result);
     }
   });
@@ -81,8 +81,226 @@ let deleteAccount = (body) => {
     }
   });
 };
+let getSong = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getSong(body.encodeId).then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getDetailPlaylist = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getDetailPlaylist(body.encodeId).then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getHome = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getHome().then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getTop100 = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getTop100().then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getChartHome = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getChartHome().then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getNewReleaseChart = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getNewReleaseChart().then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getInfoSong = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getInfoSong(body.encodeId).then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getArtist = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getArtist(body.name).then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getListArtistSong = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getListArtistSong(
+        body.encodeId,
+        body.page,
+        body.count
+      ).then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getLyric = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getLyric(body.encodeId).then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let search = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.search(body.query).then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getListMV = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getListMV(
+        body.encodeId,
+        body.page,
+        body.count
+      ).then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getCategoryMV = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getCategoryMV(body.encodeId).then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
+let getVideo = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      result = await ZingMp3.getVideo(body.encodeId).then((data) => {
+        return data.data;
+      });
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      reject(result);
+    }
+  });
+};
 module.exports = {
   register,
   login,
   deleteAccount,
+  getSong,
+  getDetailPlaylist,
+  getHome,
+  getTop100,
+  getChartHome,
+  getNewReleaseChart,
+  getInfoSong,
+  getArtist,
+  getListArtistSong,
+  getLyric,
+  search,
+  getListMV,
+  getCategoryMV,
+  getVideo,
 };

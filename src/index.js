@@ -31,7 +31,7 @@ let fileStorage = multer.diskStorage({
 let upload = multer({
   storage: fileStorage,
 });
-app.post("/api/upload", upload.single("image"), (req, res) => {
+app.post("/api/uploadImage", upload.single("image"), (req, res) => {
   let pathIamge = "http://localhost:" + port + req.file.path.slice(6);
   pathIamge = pathIamge.replace("\\", "/");
   res.json(pathIamge);
