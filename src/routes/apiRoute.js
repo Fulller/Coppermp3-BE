@@ -19,5 +19,6 @@ route.post("/search", apiController.search);
 route.post("/getListMV", apiController.getListMV);
 route.post("/getCategoryMV", apiController.getCategoryMV);
 route.post("/getVideo", apiController.getVideo);
+route.post("/updateUser", apiController.updateUser);
 
 module.exports = route;

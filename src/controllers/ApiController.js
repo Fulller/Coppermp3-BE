@@ -174,6 +174,16 @@ async function getVideo(req, res) {
     });
   }
 }
+async function updateUser(req, res) {
+  let data = await services.updateUser(req.body);
+  if (data) {
+    return res.json(data);
+  } else {
+    return res.json({
+      isSuccessful: false,
+    });
+  }
+}
 module.exports = {
   register,
   login,
@@ -193,4 +203,5 @@ module.exports = {
   getListMV,
   getListMV,
   getVideo,
+  updateUser,
 };

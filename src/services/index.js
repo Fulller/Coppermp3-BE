@@ -285,6 +285,28 @@ let getVideo = (body) => {
     }
   });
 };
+let updateUser = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      let data = await User.findById(body.id);
+      if (data) {
+        data.avatar = body.avatar;
+        // data.firstName = body.firstName;
+        // data.lastName = body.lastName;
+        // data.password = body.password;
+        await data.save();
+        result.isSuccessful = true;
+        resole(result);
+      } else {
+        result.isSuccessful = false;
+        resole(result);
+      }
+    } catch (e) {
+      reject(result);
+    }
+  });
+};
 module.exports = {
   register,
   login,
@@ -303,4 +325,5 @@ module.exports = {
   getListMV,
   getCategoryMV,
   getVideo,
+  updateUser,
 };
