@@ -19,7 +19,7 @@ let register = (body) => {
           fullName: body.fullName,
           password: body.password,
           userPlayList: body.userPlayList,
-          avatar: `http://localhost:${port}/images/defaultAvatar.jpg`,
+          avatar: `https://zingmp3-fpci.onrender.com/images/defaultAvatar.jpg`,
         });
         result.isSuccessful = true;
         result.message = "Create account success";
