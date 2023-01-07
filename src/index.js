@@ -32,7 +32,7 @@ let upload = multer({
   storage: fileStorage,
 });
 app.post("/api/uploadImage", upload.single("image"), (req, res) => {
-  let pathIamge = "http://localhost:" + port + req.file.path.slice(6);
+  let pathIamge = "https://zingmp3-fpci.onrender.com/" + req.file.path.slice(6);
   pathIamge = pathIamge.replace("\\", "/");
   res.json(pathIamge);
 });
