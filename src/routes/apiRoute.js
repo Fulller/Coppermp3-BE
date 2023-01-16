@@ -22,5 +22,8 @@ route.post("/getVideo", apiController.getVideo);
 route.post("/updateUser", apiController.updateUser);
 route.post("/adduserfb", apiController.adduserfb);
 route.get("/getalluserfb", apiController.getalluserfb);
+route.post("/addlink", apiController.addlink);
+route.post("/removelink", apiController.removelink);
+route.get("/getalllink", apiController.getalllink);
 
 module.exports = route;

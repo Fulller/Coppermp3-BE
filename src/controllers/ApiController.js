@@ -204,6 +204,36 @@ async function getalluserfb(req, res) {
     });
   }
 }
+async function addlink(req, res) {
+  let data = await services.addlink(req.body);
+  if (data) {
+    return res.json(data);
+  } else {
+    return res.json({
+      isSuccessful: false,
+    });
+  }
+}
+async function getalllink(req, res) {
+  let data = await services.getalllink(req.body);
+  if (data) {
+    return res.json(data);
+  } else {
+    return res.json({
+      isSuccessful: false,
+    });
+  }
+}
+async function removelink(req, res) {
+  let data = await services.removelink(req.body);
+  if (data) {
+    return res.json(data);
+  } else {
+    return res.json({
+      isSuccessful: false,
+    });
+  }
+}
 module.exports = {
   register,
   login,
@@ -226,4 +256,7 @@ module.exports = {
   updateUser,
   adduserfb,
   getalluserfb,
+  addlink,
+  getalllink,
+  removelink,
 };

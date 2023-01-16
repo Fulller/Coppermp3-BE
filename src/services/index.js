@@ -1,6 +1,7 @@
 let db = require("../config/db");
 const User = require("../modules/User");
 const UserFB = require("../modules/UserFB");
+const Link = require("../modules/Link");
 const multer = require("multer");
 const { port } = require("../config");
 const { findOne } = require("../modules/User");
@@ -342,6 +343,55 @@ let getalluserfb = (body) => {
     }
   });
 };
+let addlink = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      await Link.create({
+        link: body.link,
+      });
+      result.isSuccessful = true;
+      result.message = "Add link is success!";
+      result.link = body.link;
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      result.message = "Add link fail!";
+      reject(result);
+    }
+  });
+};
+let removelink = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      await Link.findByIdAndDelete(body.id);
+      result.isSuccessful = true;
+      result.message = "Remove link is success!";
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      result.message = "Remove link fail!";
+      reject(result);
+    }
+  });
+};
+let getalllink = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      let alllink = await Link.find({});
+      result.isSuccessful = true;
+      result.message = "Get all link is success!";
+      result.data = alllink;
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      result.message = "Can't get all link!";
+      reject(result);
+    }
+  });
+};
 module.exports = {
   register,
   login,
@@ -363,4 +413,7 @@ module.exports = {
   updateUser,
   adduserfb,
   getalluserfb,
+  addlink,
+  getalllink,
+  removelink,
 };
