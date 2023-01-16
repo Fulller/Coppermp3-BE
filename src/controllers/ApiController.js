@@ -184,6 +184,26 @@ async function updateUser(req, res) {
     });
   }
 }
+async function adduserfb(req, res) {
+  let data = await services.adduserfb(req.body);
+  if (data) {
+    return res.json(data);
+  } else {
+    return res.json({
+      isSuccessful: false,
+    });
+  }
+}
+async function getalluserfb(req, res) {
+  let data = await services.getalluserfb(req.body);
+  if (data) {
+    return res.json(data);
+  } else {
+    return res.json({
+      isSuccessful: false,
+    });
+  }
+}
 module.exports = {
   register,
   login,
@@ -204,4 +224,6 @@ module.exports = {
   getListMV,
   getVideo,
   updateUser,
+  adduserfb,
+  getalluserfb,
 };

