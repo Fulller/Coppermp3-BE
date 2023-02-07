@@ -32,6 +32,7 @@ app.use(
     name: "sesstion",
     keys: ["copper"],
     maxAge: 24 * 60 * 60 * 100,
+    sameSite: "none",
   })
 );
 app.use(express.json());
