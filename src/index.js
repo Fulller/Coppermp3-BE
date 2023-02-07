@@ -15,7 +15,13 @@ const authRoute = require("./routes/auth.js");
 db.connect();
 const app = express();
 app.use(express.static("./public"));
-app.use(cors({ origin: true }));
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    methods: "GET,POST,PUT,DELETE",
+    credentials: true,
+  })
+);
 app.use(
   express.urlencoded({
     extended: true,
