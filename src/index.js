@@ -7,6 +7,10 @@ const { ZingMp3 } = require("zingmp3-api-full");
 const route = require("./routes");
 const multer = require("multer");
 const { port } = require("./config");
+const cookieSession = require("cookie-session");
+const passportConfig = require("./config/passport.js");
+const passport = require("passport");
+const authRoute = require("./routes/auth.js");
 
 db.connect();
 const app = express();
@@ -15,6 +19,13 @@ app.use(cors({ origin: true }));
 app.use(
   express.urlencoded({
     extended: true,
+  })
+);
+app.use(
+  cookieSession({
+    name: "sesstion",
+    keys: ["copper"],
+    maxAge: 24 * 60 * 60 * 100,
   })
 );
 app.use(express.json());
@@ -36,6 +47,9 @@ app.post("/api/uploadImage", upload.single("image"), (req, res) => {
   pathIamge = pathIamge.replace("\\", "/");
   res.json(pathIamge);
 });
+app.use(passport.initialize());
+app.use(passport.session());
+app.use("/auth", authRoute);
 app.listen(port, () => {
   console.log(`RUNING IN PORT ${port}`);
 });
