@@ -33,6 +33,7 @@ app.use(
     keys: ["copper"],
     maxAge: 24 * 60 * 60 * 100,
     sameSite: "none",
+    httpOnly: false,
   })
 );
 app.use(express.json());
