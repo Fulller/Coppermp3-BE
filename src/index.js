@@ -29,9 +29,9 @@ app.use(
 );
 app.use(
   cookieSession({
-    name: "sesstion",
+    name: "session",
     keys: ["copper"],
-    maxAge: 24 * 60 * 60 * 100,
+    maxAge: 30 * 24 * 60 * 60 * 1000,
     sameSite: "none",
     httpOnly: false,
   })
